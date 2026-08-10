@@ -1,20 +1,11 @@
 [
   {
-    "nazwa": "Test",
-    "creator": "test",
-    "verifier": "test2zoink",
-    "points": "0.25",
-    "level_id": "test",
-    "rating": "Easy Demon",
-    "video": ""
-  },
-  {
-    "nazwa": "test2",
-    "creator": "test2",
-    "verifier": "test3",
-    "points": "2",
-    "level_id": "2",
-    "rating": "Easy Demon",
+    "nazwa": "A1",
+    "creator": "A1",
+    "verifier": "Aq",
+    "points": "1",
+    "level_id": "1",
+    "rating": "Extreme Demon",
     "video": ""
   }
 ]
