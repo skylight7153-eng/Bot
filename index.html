@@ -3,88 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accurate Dash - Demon List</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <title>Pointercrate Style - Demon List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* ==========================================
-           ACCURATE DASH - MODERN NEON DARK THEME
-           ========================================== */
+        /* POINTERCRATE COLOR SCHEME */
         :root {
-            --bg-dark: #08090d;
-            --card-bg: rgba(22, 25, 38, 0.7);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --accent-cyan: #00f2fe;
-            --accent-purple: #7f00ff;
-            --text-main: #ffffff;
-            --text-muted: #8b92b2;
+            --bg-body: #111317;
+            --bg-card: #1b1d24;
+            --bg-card-hover: #22252e;
+            --border: #2c2f3a;
+            --text-main: #e1e3e8;
+            --text-muted: #8c92a4;
+            --accent-gold: #ffd700;
+            --accent-silver: #c0c0c0;
+            --accent-bronze: #cd7f32;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.12) 0%, transparent 60%),
-                radial-gradient(circle at 80% 80%, rgba(127, 0, 255, 0.08) 0%, transparent 50%);
+            background-color: var(--bg-body);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            padding: 30px 15px;
         }
 
-        /* HEADER & LOGO */
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .logo-title {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 900;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
+            color: #ffffff;
             text-transform: uppercase;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            drop-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
-            margin-bottom: 5px;
         }
 
         .logo-subtitle {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            font-weight: 400;
-            letter-spacing: 1px;
+            font-size: 1rem;
+            margin-top: 4px;
         }
 
         /* STATS BAR */
         .stats-bar {
             display: flex;
             gap: 20px;
-            background: rgba(18, 20, 31, 0.6);
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            padding: 12px 30px;
-            border-radius: 50px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .stat-item {
-            font-size: 0.95rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 10px 25px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
             color: var(--text-muted);
         }
 
-        .stat-item span {
-            color: var(--accent-cyan);
+        .stats-bar span {
+            color: #fff;
             font-weight: 700;
         }
 
@@ -92,156 +77,112 @@
         .search-container {
             width: 100%;
             max-width: 850px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .search-container input {
             width: 100%;
-            padding: 16px 24px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            background: rgba(18, 20, 31, 0.8);
+            padding: 14px 18px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
             color: #fff;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
         }
 
         .search-container input:focus {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+            border-color: #555c6e;
         }
 
-        /* LIST & CARDS */
+        /* DEMON LIST CONTAINER */
         .demon-list {
             width: 100%;
             max-width: 850px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
-        /* EMPTY STATE (0 Demons) */
-        .empty-state {
-            background: rgba(18, 20, 31, 0.5);
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 60px 20px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .empty-icon {
-            font-size: 4rem;
-            margin-bottom: 15px;
-            display: inline-block;
-            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.5));
-        }
-
-        .empty-state h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .empty-state p {
-            color: var(--text-muted);
-            max-width: 500px;
-            margin: 0 auto 25px auto;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        .btn-submit {
-            display: inline-block;
-            padding: 12px 28px;
-            border-radius: 30px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            color: #fff;
-            font-weight: 600;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
-        }
-
-        /* DEMON CARD (When added) */
+        /* CARD STYLE (POINTERCRATE LOOK) */
         .demon-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
             overflow: hidden;
             display: flex;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            transition: background 0.2s, border-color 0.2s;
         }
 
         .demon-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 12px 30px rgba(0, 242, 254, 0.2);
+            background: var(--bg-card-hover);
+            border-color: #414656;
         }
 
         .rank {
-            background: linear-gradient(135deg, #2a2e45, #161826);
-            color: var(--accent-cyan);
-            font-size: 2rem;
+            background: #14161c;
+            color: #fff;
+            font-size: 1.8rem;
             font-weight: 900;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 80px;
-            border-right: 1px solid var(--border-color);
+            min-width: 75px;
+            border-right: 1px solid var(--border);
         }
 
-        .demon-card:nth-child(1) .rank { color: #ffd700; } /* Gold */
-        .demon-card:nth-child(2) .rank { color: #e0e0e0; } /* Silver */
-        .demon-card:nth-child(3) .rank { color: #cd7f32; } /* Bronze */
+        .demon-card:nth-child(1) .rank { color: var(--accent-gold); }
+        .demon-card:nth-child(2) .rank { color: var(--accent-silver); }
+        .demon-card:nth-child(3) .rank { color: var(--accent-bronze); }
 
         .details {
-            padding: 20px 25px;
+            padding: 18px 22px;
             flex-grow: 1;
         }
 
+        .details-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
         .details h2 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            color: #fff;
         }
 
         .details p {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin: 4px 0;
+            font-size: 0.9rem;
+            margin: 3px 0;
         }
 
-        .details span {
-            color: #fff;
-            font-weight: 600;
+        .details p span {
+            color: var(--text-main);
+            font-weight: 500;
         }
 
-        .tag {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 4px 12px;
-            border-radius: 20px;
+        /* DEMON RATING BADGES */
+        .rating-badge {
             font-size: 0.75rem;
             font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 4px;
             text-transform: uppercase;
-            background: rgba(0, 242, 254, 0.1);
-            color: var(--accent-cyan);
-            border: 1px solid rgba(0, 242, 254, 0.3);
+            letter-spacing: 0.5px;
         }
 
+        .rating-extreme { background: rgba(235, 59, 90, 0.2); color: #eb3b5a; border: 1px solid #eb3b5a; }
+        .rating-insane { background: rgba(165, 94, 234, 0.2); color: #a55eea; border: 1px solid #a55eea; }
+        .rating-hard { background: rgba(250, 130, 49, 0.2); color: #fa8231; border: 1px solid #fa8231; }
+        .rating-medium { background: rgba(254, 211, 48, 0.2); color: #fed330; border: 1px solid #fed330; }
+        .rating-easy { background: rgba(32, 191, 107, 0.2); color: #20bf6b; border: 1px solid #20bf6b; }
+        .rating-default { background: rgba(255, 255, 255, 0.1); color: #ccc; border: 1px solid #ccc; }
+
         .video-container {
-            width: 280px;
+            width: 260px;
             flex-shrink: 0;
             background: #000;
         }
@@ -253,47 +194,34 @@
         }
 
         @media (max-width: 768px) {
-            .logo-title { font-size: 2.5rem; }
-            .stats-bar { flex-direction: column; gap: 8px; text-align: center; border-radius: 20px; }
             .demon-card { flex-direction: column; }
-            .rank { width: 100%; padding: 10px; border-right: none; border-bottom: 1px solid var(--border-color); }
-            .video-container { width: 100%; height: 200px; }
+            .rank { width: 100%; padding: 8px; border-right: none; border-bottom: 1px solid var(--border); }
+            .video-container { width: 100%; height: 180px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- LOGO & HEADER -->
     <header>
-        <h1 class="logo-title">ACCURATE DASH</h1>
-        <p class="logo-subtitle">Official Demon Ranking & Leaderboard</p>
+        <h1 class="logo-title">DEMON LIST</h1>
+        <p class="logo-subtitle">Accurate Dash Official Leaderboard</p>
     </header>
 
-    <!-- STATS BAR -->
     <div class="stats-bar">
-        <div class="stat-item">Total Demons: <span id="totalDemons">0</span></div>
-        <div class="stat-item">•</div>
-        <div class="stat-item">Top Demon: <span id="topDemon">None</span></div>
+        <div>Total Demons: <span id="totalDemons">0</span></div>
+        <div>•</div>
+        <div>Top Demon: <span id="topDemon">None</span></div>
     </div>
 
-    <!-- SEARCH BAR -->
     <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="filterDemons()" placeholder="Search demon by name, creator, or verifier...">
+        <input type="text" id="searchInput" onkeyup="filterDemons()" placeholder="Search level, creator or verifier...">
     </div>
 
-    <!-- DEMON LIST -->
     <div class="demon-list" id="demonList">
-        <!-- Domyślny pusty stan -->
-        <div class="empty-state" id="emptyState">
-            <div class="empty-icon">😈</div>
-            <h2>The list is currently empty!</h2>
-            <p>Be the first player to beat and verify a level in Accurate Dash to claim the prestigious #1 spot!</p>
-            <a href="https://discord.gg/anTKXmFdn" target="_blank" class="btn-submit">Join Discord & Submit Level</a>
-        </div>
+        <p style="text-align: center; color: var(--text-muted);">Loading demons...</p>
     </div>
 
     <script>
-        // Automatyczna zmiana zwykłych linków YouTube na linki odtwarzalne (embed)
         function formatYouTubeUrl(url) {
             if (!url) return '';
             if (url.includes('youtube.com/embed/')) return url;
@@ -308,43 +236,50 @@
             return `https://www.youtube.com/embed/${videoId}`;
         }
 
-        // Pobieranie danych z dane.json
+        // Dopasowanie koloru plakietki trudności
+        function getRatingClass(rating) {
+            if (!rating) return 'rating-default';
+            const r = rating.toLowerCase();
+            if (r.includes('extreme')) return 'rating-extreme';
+            if (r.includes('insane')) return 'rating-insane';
+            if (r.includes('hard')) return 'rating-hard';
+            if (r.includes('medium')) return 'rating-medium';
+            if (r.includes('easy')) return 'rating-easy';
+            return 'rating-default';
+        }
+
         function wczytajDemony() {
             fetch('dane.json')
-                .then(response => {
-                    if (!response.ok) throw new Error('Brak pliku dane.json');
-                    return response.json();
-                })
+                .then(res => res.json())
                 .then(dane => {
                     const demonList = document.getElementById('demonList');
-                    const totalDemonsEl = document.getElementById('totalDemons');
-                    const topDemonEl = document.getElementById('topDemon');
+                    document.getElementById('totalDemons').innerText = dane.length;
+                    document.getElementById('topDemon').innerText = dane.length > 0 ? dane[0].nazwa : 'None';
 
-                    // Aktualizacja statystyk na górze strony
-                    totalDemonsEl.innerText = dane.length;
-                    topDemonEl.innerText = dane.length > 0 ? dane[0].nazwa : 'None';
+                    if (dane.length === 0) {
+                        demonList.innerHTML = '<p style="text-align: center; color: var(--text-muted);">List is empty.</p>';
+                        return;
+                    }
 
-                    if (dane.length === 0) return;
-
-                    // Czyszczenie napisu o pustej liście
                     demonList.innerHTML = '';
 
-                    // Generowanie kart demonów z pliku JSON
                     dane.forEach((item, index) => {
                         const card = document.createElement('div');
                         card.className = 'demon-card';
                         
                         const embedUrl = formatYouTubeUrl(item.video);
+                        const ratingClass = getRatingClass(item.rating);
 
                         card.innerHTML = `
                             <div class="rank">#${index + 1}</div>
                             <div class="details">
-                                <h2>${item.nazwa}</h2>
-                                <p>Creator: <span>${item.creator || 'Unknown'}</span></p>
-                                <p>Verifier: <span>${item.verifier || 'Unknown'}</span></p>
-                                <p>Points: <span>${item.points || '0 pts'}</span></p>
-                                <p>Level ID: <span>${item.level_id || '#000000'}</span></p>
-                                <div class="tag">${item.tag || 'Extreme Demon'}</div>
+                                <div class="details-header">
+                                    <h2>${item.nazwa}</h2>
+                                    <span class="rating-badge ${ratingClass}">${item.rating || 'Demon'}</span>
+                                </div>
+                                <p>Created by <span>${item.creator || 'Unknown'}</span></p>
+                                <p>Verified by <span>${item.verifier || 'Unknown'}</span></p>
+                                <p>Points: <span>${item.points || '0.00'}</span> | Level ID: <span>${item.level_id || 'N/A'}</span></p>
                             </div>
                             <div class="video-container">
                                 <iframe src="${embedUrl}" allowfullscreen></iframe>
@@ -353,27 +288,21 @@
                         demonList.appendChild(card);
                     });
                 })
-                .catch(err => console.log('Brak danych lub błąd pliku JSON:', err));
+                .catch(err => {
+                    document.getElementById('demonList').innerHTML = '<p style="text-align: center; color: var(--text-muted);">Failed to load dane.json</p>';
+                });
         }
 
-        // Wyszukiwarka w czasie rzeczywistym
         function filterDemons() {
             const input = document.getElementById('searchInput').value.toLowerCase();
             const cards = document.getElementsByClassName('demon-card');
 
             for (let i = 0; i < cards.length; i++) {
-                const title = cards[i].querySelector('h2').innerText.toLowerCase();
-                const details = cards[i].querySelector('.details').innerText.toLowerCase();
-
-                if (title.includes(input) || details.includes(input)) {
-                    cards[i].style.display = "flex";
-                } else {
-                    cards[i].style.display = "none";
-                }
+                const text = cards[i].innerText.toLowerCase();
+                cards[i].style.display = text.includes(input) ? "flex" : "none";
             }
         }
 
-        // Wczytaj dane po otwarciu strony
         wczytajDemony();
     </script>
 </body>
