@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Accurate Dash</title>
+    <title>Admin Panel - Auto Save GitHub</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -17,12 +17,7 @@
             --accent-blue: #4b7bec;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto', sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
 
         body {
             background-color: var(--bg-body);
@@ -34,12 +29,8 @@
             padding: 40px 20px;
         }
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-        }
+        .container { width: 100%; max-width: 900px; }
 
-        /* LOGIN SCREEN */
         .login-box {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -50,12 +41,7 @@
             text-align: center;
         }
 
-        .login-box h2 {
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        input, select, textarea {
+        input, select {
             width: 100%;
             padding: 12px;
             background: #14161c;
@@ -67,10 +53,6 @@
             outline: none;
         }
 
-        input:focus, select:focus, textarea:focus {
-            border-color: #555c6e;
-        }
-
         button {
             padding: 12px 20px;
             border-radius: 6px;
@@ -80,21 +62,14 @@
             transition: opacity 0.2s;
         }
 
-        button:hover {
-            opacity: 0.85;
-        }
+        button:hover { opacity: 0.85; }
 
         .btn-green { background: var(--accent-green); color: #fff; }
         .btn-blue { background: var(--accent-blue); color: #fff; }
         .btn-red { background: var(--accent-red); color: #fff; }
         .btn-gray { background: #3a3f50; color: #fff; }
 
-        /* DASHBOARD */
-        .dashboard {
-            display: none;
-            flex-direction: column;
-            gap: 25px;
-        }
+        .dashboard { display: none; flex-direction: column; gap: 25px; }
 
         .panel-block {
             background: var(--bg-card);
@@ -110,17 +85,9 @@
             padding-bottom: 10px;
         }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .form-grid .full-width { grid-column: span 2; }
 
-        .form-grid .full-width {
-            grid-column: span 2;
-        }
-
-        /* LEVEL ITEM LIST */
         .level-item {
             background: #14161c;
             border: 1px solid var(--border);
@@ -132,65 +99,54 @@
             margin-bottom: 10px;
         }
 
-        .level-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .level-info { display: flex; align-items: center; gap: 15px; }
+        .level-pos { font-weight: 900; color: #8c92a4; min-width: 35px; }
+        .level-actions { display: flex; gap: 8px; }
+        .level-actions button { padding: 6px 12px; font-size: 0.8rem; }
 
-        .level-pos {
-            font-weight: 900;
-            color: #8c92a4;
-            min-width: 35px;
-        }
-
-        .level-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .level-actions button {
-            padding: 6px 12px;
-            font-size: 0.8rem;
-        }
-
-        textarea.json-output {
-            height: 150px;
-            font-family: monospace;
-            font-size: 0.85rem;
-            resize: vertical;
-        }
+        .status-msg { margin-top: 10px; font-size: 0.9rem; font-weight: 700; }
     </style>
 </head>
 <body>
 
     <div class="container">
         
-        <!-- EKRAN LOGOWANIA -->
+        <!-- LOGOWANIE -->
         <div class="login-box" id="loginBox">
-            <h2>Admin Panel Login</h2>
+            <h2 style="margin-bottom: 20px;">Admin Panel Login</h2>
             <input type="password" id="passwordInput" placeholder="Wpisz hasło administratora...">
             <button class="btn-green" style="width: 100%;" onclick="checkPassword()">Zaloguj się</button>
-            <p id="errorMsg" style="color: var(--accent-red); margin-top: 10px; font-size: 0.85rem; display: none;">Nieprawidłowe hasło!</p>
+            <p id="errorMsg" style="color: var(--accent-red); margin-top: 10px; display: none;">Nieprawidłowe hasło!</p>
         </div>
 
-        <!-- PANEL ZARZĄDZANIA -->
+        <!-- PANEL -->
         <div class="dashboard" id="dashboard">
             
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h2>Accurate Dash - Zarządzanie Demonami</h2>
-                <button class="btn-gray" onclick="fetchCurrentData()">Odśwież z dane.json</button>
+                <h2>Accurate Dash - Zarządzanie Lista</h2>
+                <a href="index.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">← Wróć do Demon Listy</a>
             </div>
 
-            <!-- FORMULARZ DODAWANIA POZIOMU -->
+            <!-- KONFIGURACJA GITHUBA -->
             <div class="panel-block">
-                <h3>Dodaj Nowy Poziom</h3>
+                <h3>1. Ustawienia GitHuba (Zapisujesz raz!)</h3>
                 <div class="form-grid">
-                    <input type="text" id="addNazwa" placeholder="Nazwa Poziomu (np. Acheron)">
+                    <input type="text" id="ghOwner" placeholder="Twój Login GitHub (np. jan-kowalski)">
+                    <input type="text" id="ghRepo" placeholder="Nazwa Repozytorium (np. accurate-dash)">
+                    <input type="password" id="ghToken" class="full-width" placeholder="GitHub Personal Access Token (ghp_...)">
+                </div>
+                <button class="btn-gray" style="width: 100%;" onclick="saveGitHubSettings()">Zapisz Ustawienia w Przeglądarce</button>
+            </div>
+
+            <!-- DODAWANIE POZIOMU -->
+            <div class="panel-block">
+                <h3>2. Dodaj Nowy Poziom</h3>
+                <div class="form-grid">
+                    <input type="text" id="addNazwa" placeholder="Nazwa Poziomu">
                     <input type="text" id="addCreator" placeholder="Twórca (Creator)">
                     <input type="text" id="addVerifier" placeholder="Weryfikator (Verifier)">
                     <input type="text" id="addPoints" placeholder="Punkty (np. 100.00)">
-                    <input type="text" id="addLevelId" placeholder="ID Poziomu (np. #123456)">
+                    <input type="text" id="addLevelId" placeholder="ID Poziomu">
                     
                     <select id="addRating">
                         <option value="Extreme Demon">Extreme Demon</option>
@@ -200,25 +156,22 @@
                         <option value="Easy Demon">Easy Demon</option>
                     </select>
 
-                    <input type="text" id="addVideo" class="full-width" placeholder="Link do YouTube (np. https://www.youtube.com/watch?v=...)">
+                    <input type="text" id="addVideo" class="full-width" placeholder="Link do YouTube">
                 </div>
                 <button class="btn-green" style="margin-top: 10px; width: 100%;" onclick="addDemon()">Dodaj Demon do Listy</button>
             </div>
 
-            <!-- ZARZĄDZANIE POZYCJAMI -->
+            <!-- POZYCJE I AUTO-ZAPIS -->
             <div class="panel-block">
-                <h3>Kolejność i Pozycje (#1, #2, #3...)</h3>
+                <h3>3. Kolejność i Automatyczny Zapis</h3>
                 <div id="levelsContainer">
                     <p style="color: var(--text-muted);">Ładowanie poziomów...</p>
                 </div>
-            </div>
 
-            <!-- EKSPORT KODU JSON -->
-            <div class="panel-block">
-                <h3>Gotowy Kod JSON (Dla GitHuba)</h3>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">Skopiuj poniższy kod i wklej go bezpośrednio do pliku <code>dane.json</code> w serwisie GitHub.</p>
-                <textarea id="jsonOutput" class="json-output" readonly></textarea>
-                <button class="btn-blue" style="width: 100%; margin-top: 10px;" onclick="copyJSON()">Kopiuj Kod JSON do Schowka</button>
+                <div style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 15px;">
+                    <button class="btn-blue" style="width: 100%; font-size: 1.1rem; padding: 15px;" id="saveBtn" onclick="saveToGitHub()">🚀 ZAPISZ BEZPOŚREDNIO NA GITHUBIE</button>
+                    <div id="statusMsg" class="status-msg"></div>
+                </div>
             </div>
 
         </div>
@@ -230,14 +183,27 @@
         let demonData = [];
 
         function checkPassword() {
-            const pass = document.getElementById('passwordInput').value;
-            if (pass === CORRECT_PASS) {
+            if (document.getElementById('passwordInput').value === CORRECT_PASS) {
                 document.getElementById('loginBox').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'flex';
+                loadGitHubSettings();
                 fetchCurrentData();
             } else {
                 document.getElementById('errorMsg').style.display = 'block';
             }
+        }
+
+        function loadGitHubSettings() {
+            document.getElementById('ghOwner').value = localStorage.getItem('gh_owner') || '';
+            document.getElementById('ghRepo').value = localStorage.getItem('gh_repo') || '';
+            document.getElementById('ghToken').value = localStorage.getItem('gh_token') || '';
+        }
+
+        function saveGitHubSettings() {
+            localStorage.setItem('gh_owner', document.getElementById('ghOwner').value.trim());
+            localStorage.setItem('gh_repo', document.getElementById('ghRepo').value.trim());
+            localStorage.setItem('gh_token', document.getElementById('ghToken').value.trim());
+            alert("Ustawienia GitHuba zostały zapisane!");
         }
 
         function fetchCurrentData() {
@@ -259,7 +225,6 @@
 
             if (demonData.length === 0) {
                 container.innerHTML = '<p style="color: var(--text-muted);">Brak poziomów na liście.</p>';
-                updateJSONOutput();
                 return;
             }
 
@@ -271,48 +236,33 @@
                         <span class="level-pos">#${index + 1}</span>
                         <div>
                             <strong>${item.nazwa}</strong> (${item.rating || 'Demon'})
-                            <div style="font-size: 0.8rem; color: var(--text-muted);">By ${item.creator || 'N/A'} | Verified: ${item.verifier || 'N/A'}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">By ${item.creator || 'N/A'}</div>
                         </div>
                     </div>
                     <div class="level-actions">
-                        <button class="btn-gray" onclick="moveLevel(${index}, -1)" ${index === 0 ? 'disabled style="opacity:0.3"' : ''}>▲ Góra</button>
-                        <button class="btn-gray" onclick="moveLevel(${index}, 1)" ${index === demonData.length - 1 ? 'disabled style="opacity:0.3"' : ''}>▼ Dół</button>
+                        <button class="btn-gray" onclick="moveLevel(${index}, -1)" ${index === 0 ? 'disabled style="opacity:0.3"' : ''}>▲</button>
+                        <button class="btn-gray" onclick="moveLevel(${index}, 1)" ${index === demonData.length - 1 ? 'disabled style="opacity:0.3"' : ''}>▼</button>
                         <button class="btn-red" onclick="deleteLevel(${index})">Usuń</button>
                     </div>
                 `;
                 container.appendChild(div);
             });
-
-            updateJSONOutput();
         }
 
         function addDemon() {
             const nazwa = document.getElementById('addNazwa').value.trim();
-            const creator = document.getElementById('addCreator').value.trim();
-            const verifier = document.getElementById('addVerifier').value.trim();
-            const points = document.getElementById('addPoints').value.trim();
-            const level_id = document.getElementById('addLevelId').value.trim();
-            const rating = document.getElementById('addRating').value;
-            const video = document.getElementById('addVideo').value.trim();
+            if (!nazwa) return alert("Wpisz nazwę poziomu!");
 
-            if (!nazwa) {
-                alert("Wpisz przynajmniej nazwę poziomu!");
-                return;
-            }
-
-            const newDemon = {
+            demonData.push({
                 nazwa: nazwa,
-                creator: creator || "Unknown",
-                verifier: verifier || "Unknown",
-                points: points || "0.00",
-                level_id: level_id || "#000000",
-                rating: rating,
-                video: video || ""
-            };
+                creator: document.getElementById('addCreator').value.trim() || "Unknown",
+                verifier: document.getElementById('addVerifier').value.trim() || "Unknown",
+                points: document.getElementById('addPoints').value.trim() || "0.00",
+                level_id: document.getElementById('addLevelId').value.trim() || "#000000",
+                rating: document.getElementById('addRating').value,
+                video: document.getElementById('addVideo').value.trim() || ""
+            });
 
-            demonData.push(newDemon);
-            
-            // Czyszczenie pól
             document.getElementById('addNazwa').value = '';
             document.getElementById('addCreator').value = '';
             document.getElementById('addVerifier').value = '';
@@ -326,30 +276,80 @@
         function moveLevel(index, direction) {
             const newIndex = index + direction;
             if (newIndex < 0 || newIndex >= demonData.length) return;
-
             const temp = demonData[index];
             demonData[index] = demonData[newIndex];
             demonData[newIndex] = temp;
-
             renderLevels();
         }
 
         function deleteLevel(index) {
-            if (confirm(`Czy na pewno chcesz usunąć "${demonData[index].nazwa}"?`)) {
+            if (confirm(`Usunąć "${demonData[index].nazwa}"?`)) {
                 demonData.splice(index, 1);
                 renderLevels();
             }
         }
 
-        function updateJSONOutput() {
-            document.getElementById('jsonOutput').value = JSON.stringify(demonData, null, 2);
+        function utf8_to_b64(str) {
+            return window.btoa(unescape(encodeURIComponent(str)));
         }
 
-        function copyJSON() {
-            const textarea = document.getElementById('jsonOutput');
-            textarea.select();
-            document.execCommand('copy');
-            alert("Kod JSON został skopiowany do schowka! Wklej go do pliku dane.json na GitHubie.");
+        async function saveToGitHub() {
+            const owner = document.getElementById('ghOwner').value.trim();
+            const repo = document.getElementById('ghRepo').value.trim();
+            const token = document.getElementById('ghToken').value.trim();
+            const statusMsg = document.getElementById('statusMsg');
+            const saveBtn = document.getElementById('saveBtn');
+
+            if (!owner || !repo || !token) {
+                alert("Wypełnij najpierw sekcję 'Ustawienia GitHuba'!");
+                return;
+            }
+
+            saveBtn.disabled = true;
+            statusMsg.style.color = "#4b7bec";
+            statusMsg.innerText = "⏳ Wysyłanie zmian na GitHub...";
+
+            try {
+                const getFileRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/dane.json`, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+
+                let sha = "";
+                if (getFileRes.ok) {
+                    const fileData = await getFileRes.json();
+                    sha = fileData.sha;
+                }
+
+                const jsonContent = JSON.stringify(demonData, null, 2);
+                const contentB64 = utf8_to_b64(jsonContent);
+
+                const putRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/dane.json`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update dane.json from Admin Panel',
+                        content: contentB64,
+                        sha: sha ? sha : undefined
+                    })
+                });
+
+                if (putRes.ok) {
+                    statusMsg.style.color = "#20bf6b";
+                    statusMsg.innerText = "✅ ZAPISANO ZMIANY! Strona zaktualizuje się w ciągu około minuty.";
+                } else {
+                    const errorData = await putRes.json();
+                    throw new Error(errorData.message || "Błąd wysyłania");
+                }
+
+            } catch (err) {
+                statusMsg.style.color = "#eb3b5a";
+                statusMsg.innerText = "❌ BŁĄD ZAPISU: " + err.message;
+            } finally {
+                saveBtn.disabled = false;
+            }
         }
     </script>
 </body>
