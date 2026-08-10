@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accurate Dash - Demon List</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           ACCURATE DASH - MODERN NEON DARK THEME
+           ========================================== */
+        :root {
+            --bg-dark: #08090d;
+            --card-bg: rgba(22, 25, 38, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #00f2fe;
+            --accent-purple: #7f00ff;
+            --text-main: #ffffff;
+            --text-muted: #8b92b2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(127, 0, 255, 0.08) 0%, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* HEADER & LOGO */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            drop-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
+            margin-bottom: 5px;
+        }
+
+        .logo-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            background: rgba(18, 20, 31, 0.6);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            padding: 12px 30px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .stat-item {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .stat-item span {
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        /* SEARCH BAR */
+        .search-container {
+            width: 100%;
+            max-width: 850px;
+            margin-bottom: 30px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            background: rgba(18, 20, 31, 0.8);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .search-container input:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+        }
+
+        /* LIST & CARDS */
+        .demon-list {
+            width: 100%;
+            max-width: 850px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* EMPTY STATE (0 Demons) */
+        .empty-state {
+            background: rgba(18, 20, 31, 0.5);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 60px 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.5));
+        }
+
+        .empty-state h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .empty-state p {
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto 25px auto;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .btn-submit {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+        }
+
+        /* DEMON CARD (When added) */
+        .demon-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            overflow: hidden;
+            display: flex;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .demon-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 12px 30px rgba(0, 242, 254, 0.2);
+        }
+
+        .rank {
+            background: linear-gradient(135deg, #2a2e45, #161826);
+            color: var(--accent-cyan);
+            font-size: 2rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .demon-card:nth-child(1) .rank { color: #ffd700; } /* Gold */
+        .demon-card:nth-child(2) .rank { color: #e0e0e0; } /* Silver */
+        .demon-card:nth-child(3) .rank { color: #cd7f32; } /* Bronze */
+
+        .details {
+            padding: 20px 25px;
+            flex-grow: 1;
+        }
+
+        .details h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .details p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 4px 0;
+        }
+
+        .details span {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+        }
+
+        .video-container {
+            width: 280px;
+            flex-shrink: 0;
+            background: #000;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .logo-title { font-size: 2.5rem; }
+            .stats-bar { flex-direction: column; gap: 8px; text-align: center; border-radius: 20px; }
+            .demon-card { flex-direction: column; }
+            .rank { width: 100%; padding: 10px; border-right: none; border-bottom: 1px solid var(--border-color); }
+            .video-container { width: 100%; height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGO & HEADER -->
+    <header>
+        <h1 class="logo-title">ACCURATE DASH</h1>
+        <p class="logo-subtitle">Official Demon Ranking & Leaderboard</p>
+    </header>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-item">Total Demons: <span id="totalDemons">0</span></div>
+        <div class="stat-item">•</div>
+        <div class="stat-item">Top Demon: <span id="topDemon">None</span></div>
+    </div>
+
+    <!-- SEARCH BAR -->
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="filterDemons()" placeholder="Search demon by name, creator, or verifier...">
+    </div>
+
+    <!-- DEMON LIST -->
+    <div class="demon-list" id="demonList">
+        <!-- Domyślny pusty stan -->
+        <div class="empty-state" id="emptyState">
+            <div class="empty-icon">😈</div>
+            <h2>The list is currently empty!</h2>
+            <p>Be the first player to beat and verify a level in Accurate Dash to claim the prestigious #1 spot!</p>
+            <a href="https://discord.gg/anTKXmFdn" target="_blank" class="btn-submit">Join Discord & Submit Level</a>
+        </div>
+    </div>
+
+    <script>
+        // Automatyczna zmiana zwykłych linków YouTube na linki odtwarzalne (embed)
+        function formatYouTubeUrl(url) {
+            if (!url) return '';
+            if (url.includes('youtube.com/embed/')) return url;
+            let videoId = '';
+            if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
+            } else if (url.includes('youtube.com/watch?v=')) {
+                videoId = url.split('v=')[1].split('&')[0];
+            } else {
+                videoId = url;
+            }
+            return `https://www.youtube.com/embed/${videoId}`;
+        }
+
+        // Pobieranie danych z dane.json
+        function wczytajDemony() {
+            fetch('dane.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('Brak pliku dane.json');
+                    return response.json();
+                })
+                .then(dane => {
+                    const demonList = document.getElementById('demonList');
+                    const totalDemonsEl = document.getElementById('totalDemons');
+                    const topDemonEl = document.getElementById('topDemon');
+
+                    // Aktualizacja statystyk na górze strony
+                    totalDemonsEl.innerText = dane.length;
+                    topDemonEl.innerText = dane.length > 0 ? dane[0].nazwa : 'None';
+
+                    if (dane.length === 0) return;
+
+                    // Czyszczenie napisu o pustej liście
+                    demonList.innerHTML = '';
+
+                    // Generowanie kart demonów z pliku JSON
+                    dane.forEach((item, index) => {
+                        const card = document.createElement('div');
+                        card.className = 'demon-card';
+                        
+                        const embedUrl = formatYouTubeUrl(item.video);
+
+                        card.innerHTML = `
+                            <div class="rank">#${index + 1}</div>
+                            <div class="details">
+                                <h2>${item.nazwa}</h2>
+                                <p>Creator: <span>${item.creator || 'Unknown'}</span></p>
+                                <p>Verifier: <span>${item.verifier || 'Unknown'}</span></p>
+                                <p>Points: <span>${item.points || '0 pts'}</span></p>
+                                <p>Level ID: <span>${item.level_id || '#000000'}</span></p>
+                                <div class="tag">${item.tag || 'Extreme Demon'}</div>
+                            </div>
+                            <div class="video-container">
+                                <iframe src="${embedUrl}" allowfullscreen></iframe>
+                            </div>
+                        `;
+                        demonList.appendChild(card);
+                    });
+                })
+                .catch(err => console.log('Brak danych lub błąd pliku JSON:', err));
+        }
+
+        // Wyszukiwarka w czasie rzeczywistym
+        function filterDemons() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.getElementsByClassName('demon-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                const title = cards[i].querySelector('h2').innerText.toLowerCase();
+                const details = cards[i].querySelector('.details').innerText.toLowerCase();
+
+                if (title.includes(input) || details.includes(input)) {
+                    cards[i].style.display = "flex";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // Wczytaj dane po otwarciu strony
+        wczytajDemony();
+    </script>
+</body>
+</html>
